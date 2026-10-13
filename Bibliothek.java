@@ -3,21 +3,21 @@ import java.util.*;
 public class Bibliothek{
     public List<Buch> buecher = new ArrayList<>();
 
-    public void get_books(String author_name){
+    public void bucher_mit_autorname(String author_name){
 
-        List<String> result = new ArrayList<>();
+        List<String> erg = new ArrayList<>();
 
         for(Buch buch : this.buecher){
             if(buch.autor == author_name){
-                result.add(buch.titel);
+                erg.add(buch.titel);
             }
         }
 
-        if(result.size() == 0){
+        if(erg.size() == 0){
             System.out.println("Keine Bucher von diesem Autor!");
         }
         else{
-            for(String titel:result){
+            for(String titel:erg){
                 System.out.println(titel);
             }
         }
@@ -34,19 +34,50 @@ public class Bibliothek{
     }
 
     public void innerhalb_preislimit(List<Buch> buecher, Double max_preis){
-        List<String> result = new ArrayList<>();
+        List<String> erg = new ArrayList<>();
 
         for(Buch buch: buecher){
             if(buch.preis <= max_preis){
-                result.add(buch.titel);
+                erg.add(buch.titel);
             }
         }
 
-        if(result.size() == 0){
+        if(erg.size() == 0){
             System.out.println("Keine Buecher unter den gegebenen Preis!");
         }
         else{
-            for(String titel:result){
+            for(String titel:erg){
+                System.out.println(titel);
+            }
+        }
+    }
+
+    public void teureste_buch(List<Buch> buecher){
+        Buch erg = buecher.get(0);
+
+        for(Buch buch:buecher){
+            if(buch.preis > erg.preis){
+                erg = buch;
+            }
+        }
+
+        System.out.println(erg.titel);
+    }
+
+    public void buecher_mit_mindestseitanzahl(Integer mindestanzahl){
+        List<String> erg = new ArrayList<>();
+
+        for(Buch buch: this.buecher){
+            if(buch.anzahl_seiten >= mindestanzahl){
+                erg.add(buch.titel);
+            }
+        }
+        
+        if(erg.size() == 0){
+            System.out.println("Keine Buecher!");
+        }
+        else{
+            for(String titel:erg){
                 System.out.println(titel);
             }
         }
