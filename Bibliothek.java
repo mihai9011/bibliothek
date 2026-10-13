@@ -23,4 +23,14 @@ public class Bibliothek{
         }
     }
 
+    public Double durchschnittliche_Anzahl(List<Buch> buecher){
+        Double sum = 0.0;
+
+        for(Buch buch: buecher){
+            sum += buch.anzahl_seiten;
+        }
+
+        return sum/buecher.size();
+    }
+
 }
