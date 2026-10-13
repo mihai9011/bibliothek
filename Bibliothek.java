@@ -3,6 +3,10 @@ import java.util.*;
 public class Bibliothek{
     public List<Buch> buecher = new ArrayList<>();
 
+    public Bibliothek(List<Buch> buecher){
+        this.buecher = buecher;
+    }
+
     public void bucher_mit_autorname(String author_name){
 
         List<String> erg = new ArrayList<>();
@@ -82,5 +86,26 @@ public class Bibliothek{
             }
         }
 
+    }
+
+    //to do 
+    public void bucher_im_budget(List<Buch> buecher, Double budget){
+
+  
+    }
+
+    public List<Buch> names_to_books(List<String> namen){
+        List<Buch> erg = new ArrayList<>();
+
+        for(String name:namen){
+            for(Buch buch:this.buecher){
+                if(buch.titel.equals(name)){
+                    erg.add(buch);
+                    break;
+                }
+            }
+        }
+
+        return erg;
     }
 }
