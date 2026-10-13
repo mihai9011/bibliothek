@@ -14,7 +14,7 @@ public class Bibliothek{
         }
 
         if(result.size() == 0){
-            System.out.println("No books by this author.");
+            System.out.println("Keine Bucher von diesem Autor!");
         }
         else{
             for(String titel:result){
@@ -33,4 +33,23 @@ public class Bibliothek{
         return sum/buecher.size();
     }
 
+    public void innerhalb_preislimit(List<Buch> buecher, Double max_preis){
+        List<String> result = new ArrayList<>();
+
+        for(Buch buch: buecher){
+            if(buch.preis <= max_preis){
+                result.add(buch.titel);
+            }
+        }
+
+        if(result.size() == 0){
+            System.out.println("Keine Buecher unter den gegebenen Preis!");
+        }
+        else{
+            for(String titel:result){
+                System.out.println(titel);
+            }
+        }
+
+    }
 }

@@ -1,7 +1,7 @@
 public class Buch{
     public String titel;
     public String autor;
-    public Integer price;
+    public Double preis;
     public Integer anzahl_seiten;
 
 }
