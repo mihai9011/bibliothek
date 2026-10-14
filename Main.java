@@ -16,7 +16,6 @@ public class Main{
         buecher.add(buch4);
 
         Bibliothek b = new Bibliothek(buecher);
-
         System.out.println("Die Bucher fur die Anfragen:");
 
         List<String> buecher_namen = new ArrayList<>();
