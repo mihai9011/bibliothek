@@ -103,54 +103,56 @@ public class Bibliothek{
 
 
     public void bucher_im_budget(List<Buch> buecher, Double budget){
-        if(buecher.size() <= 2){
+        //kein gueltiges paar kann gemacht werden
+        if(buecher.size() < 2){
             System.out.println("Die Liste enthalt nicht genug Buecher!");
             return;
         }
+
         //List mit ergebnisse
         List<Quartet> erg = new ArrayList<>();
 
-        //sortieren nach preis
-        List<Buch> sortiert = new ArrayList<>();
-        sortiert = buecher;
+        //sortieren nach preis, deep kopie nach buecher
+        List<Buch> sortiert = new ArrayList<>(buecher);
 
-        sortiert.sort(Comparator.comparingDouble(Buch::getPreis));
+        sortiert.sort(Comparator.comparingDouble(Buch::getPreis).thenComparingInt(Buch::getSeiten));
 
         int rechtes_index = sortiert.size() - 1;
         int linkes_index = 0;
 
-        Double curr_sum = sortiert.get(linkes_index).getPreis() + sortiert.get(rechtes_index).getPreis();
+        Double curr_sum = sortiert.get(linkes_index).getPreis() + sortiert.get(rechtes_index).getPreis();        
         int nr_seiten = sortiert.get(linkes_index).getSeiten() + sortiert.get(rechtes_index).getSeiten();
 
-        int r_index = rechtes_index;
-        int l_index = linkes_index;
 
         while(linkes_index < rechtes_index){
 
-            if(curr_sum < budget){
-                //die indizes speichern
-
-                r_index = rechtes_index;
-                l_index = linkes_index;
+            if(curr_sum <= budget){
+                
                 nr_seiten = sortiert.get(linkes_index).getSeiten() + sortiert.get(rechtes_index).getSeiten();
 
-                erg.add(new Quartet(l_index, r_index, nr_seiten, curr_sum));
+                //Indizes , nr_seiten und die summe in einen neuen Quartet speichern
+                erg.add(new Quartet(linkes_index, rechtes_index, nr_seiten, curr_sum));
 
                 linkes_index ++;
-                curr_sum = sortiert.get(linkes_index).getPreis() + sortiert.get(rechtes_index).getPreis();
             }
             else{
                 rechtes_index --;
-                curr_sum = sortiert.get(linkes_index).getPreis() + sortiert.get(rechtes_index).getPreis();
             }
+            curr_sum = sortiert.get(linkes_index).getPreis() + sortiert.get(rechtes_index).getPreis();
         }
 
-        
-        // System.out.println(sortiert.get(l_index).getTitel() + " + " +  sortiert.get(r_index).getTitel());
-        // Double gesamtpreis = sortiert.get(l_index).getPreis() + sortiert.get(r_index).getPreis();
+        if(erg.size() == 0){
+            System.out.println("Keine 2 Buecher unter den gegebenen Budget!");
+            return;
+        }
 
-        // System.out.println("Gesamtpreis:" + gesamtpreis);
+        erg.sort(Comparator.comparingDouble(Quartet::fourth).thenComparingInt(Quartet::third));
 
+        linkes_index = erg.get(erg.size() - 1).first();
+        rechtes_index = erg.get(erg.size() - 1).second();
+
+        System.out.println(sortiert.get(linkes_index).getTitel() + " + " + sortiert.get(rechtes_index).getTitel());
+        System.out.println("Gesamtpreis: " + erg.get(erg.size() - 1).fourth());
     }
 
     
